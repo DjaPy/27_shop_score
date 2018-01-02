@@ -1,7 +1,8 @@
-from app_shop_score import app
-from flask import render_template
+from flask import Blueprint, render_template
 
+score_page = Blueprint('score_page', __name__,
+                       template_folder='templates')
 
-@app.route('/')
+@score_page.route('/')
 def score():
     return render_template('score.html')
