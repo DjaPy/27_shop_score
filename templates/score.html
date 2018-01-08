@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Score">
     <meta name="author" content="">
-    <!--meta http-equiv="refresh" content="10" -->
+    <meta http-equiv="refresh" content="10">
 
     <link rel="icon" href="favicon.ico">
 
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" >
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" >
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Marmelad" rel="stylesheet">
 
 
   </head>
@@ -25,6 +25,9 @@
     <div class="container" >
       <div class="row justify-content-md-center">
         <div class="col-md-10 col-xs-12">
+          <div class="alert alert-dark" role="alert">
+            <h4 class="text-center"> Время ожидания клиента </h4>
+          </div>
           <div id="waitng_time" class="text-center jumbotron">
             <h2><i class="fa fa-clock-o" aria-hidden="true"></i> {{ score }} минуты</h2>
             <h5><i class="fa fa-question-circle" aria-hidden="true"></i> {{ orders_count }} не подтвержденных заказов</h5>
