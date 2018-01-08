@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,59 +13,41 @@
     <title>Мониторинг</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" >
-
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" >
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
 
 
   </head>
 
-  <body style="background: url(/static/img/bg.jpg) center fixed;">
+  <body>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-xs-12 col-md-offset-3">
-          <div class="alert alert-success" role="alert">
-            <h2 class="text-center">Обработано заявок сегодня <span class="green-text label label-default">{{done_today}}</span></h2>
+    <div class="container" >
+      <div class="row justify-content-md-center">
+        <div class="col-md-10 col-xs-12">
+          <div id="waitng_time" class="text-center jumbotron">
+            <h2><i class="fa fa-clock-o" aria-hidden="true"></i> {{ score }} минуты</h2>
+            <h5><i class="fa fa-question-circle" aria-hidden="true"></i> {{ orders_count }} не подтвержденных заказов</h5>
+            <h5><i class="fa fa-check" aria-hidden="true"></i> {{ done_today }} подтвердженных заказов за сегодня</h5>
           </div>
-          <div class="alert alert-danger" role="alert">
-            <h2 class="text-center">Не обработано заявок <span class="red-text label label-default">{{orders_count}}</span></h2>
-          </div>
+        </div>
       </div>
-    </div>
-    <br>
-
-     <hr>
-          <h1 class="text-center" style="color: {{ color }}; font-size: 500%;">{{score}}</h1>
-     <hr>
-      <br>
-    <div class="container">
-        {% for order in orders %}
-            {% if now - order.created > thirty_minutes %}
-                <div class="row red-text bordered">
-                    <div class="col-xs-12 text-center">
-                        <h3>#{{order.id}}  Стоимость: {{order.price}}</h3>
-                        <h4>{{order.created.strftime("%Y-%m-%d %H:%M:%S")}}, {{order.contact_name}}, {{order.contact_phone}}</h4>
-                    </div>
-                </div>
-            {% elif now - order.created > seven_minutes %}
-                <div class="row yellow-text bordered">
-                    <div class="col-xs-12  text-center">
-                        <h3>#{{order.id}}  Стоимость: {{order.price}}</h3>
-                        <h4>{{order.created}}, {{order.contact_name}}, {{order.contact_phone}}</h4>
-                    </div>
-                </div>
-            {% else %}
-            <div class="row green-text bordered">
-                <div class="col-xs-12  text-center">
-                    <h3>#{{order.id}}  Стоимость: {{order.price}}</h3>
-                    <h4>{{order.created}}, {{order.contact_name}}, {{order.contact_phone}}</h4>
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var score = Number($("h2").text().split(" ")[1]);
+        if (score <= 7) {
+          $(".jumbotron").addClass("good");
+        }
+        else if (score < 30) {
+          $(".jumbotron").addClass("average");
+        }
+        else {
+          $(".jumbotron").addClass("bad");
+        }
+      });
+    </script>
   </body>
-</html>
 </html>

@@ -3,9 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from datetime import datetime, timedelta, date
 
-ORDER_NUM = 10
-BAD_DIFF_TIME = 30
-SATISFACTORY_DIFF_TIME = 7
+
+TIME_WAITING = 0.0
 
 app = Flask(__name__)
 
@@ -32,29 +31,18 @@ def score():
     if done_today:
         confirmed_orders_count = done_today.filter(
             confirmed_is_not_none).count()
-
-    if open_orders_count:
-        latest_open_order = open_orders.order_by(
-            Orders.created).first()
-
-        if latest_open_order:
-            latest_open_order_time_min = round((datetime.now() -
-                                                latest_open_order.created).total_seconds())
-
-            if latest_open_order_time_min > timedelta(BAD_DIFF_TIME):
-                color = 'firebrick'
-            elif latest_open_order_time_min > timedelta(SATISFACTORY_DIFF_TIME):
-                color = 'darkgoldenrod'
+    if open_orders.order_by(Orders.created).first():
+        waiting_time = datetime.now() - open_orders.order_by(Orders.created).first().created
+        waiting_time = round(waiting_time, 1)
     else:
-        color = 'darkgreen'
+        waiting_time = TIME_WAITING
+
     return render_template('score.html',
                            now=datetime.today(),
-                           seven_minutes=timedelta(minutes=7),
-                           thirty_minutes=timedelta(minutes=30),
-                           orders=open_orders[:ORDER_NUM],
+                           score =waiting_time,
                            orders_count=open_orders_count,
                            done_today=confirmed_orders_count,
-                           color=color)
+                           )
 
 
 if __name__ == "__main__":
