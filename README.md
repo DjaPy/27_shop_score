@@ -1,6 +1,15 @@
 # Shop Score Page
 
-{TODO. There will be project description}
+This applications shows the workload of the call center store.
+
+# About app
+
+The app is updated every 10 seconds
+
+Displays the following information:
+
+- 
+
 
 # Project Goals
 
