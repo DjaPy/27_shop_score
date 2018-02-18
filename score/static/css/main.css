@@ -3,7 +3,7 @@ body {
 }
 .jumbotron h2 {
     font-family: 'Marmelad', sans-serif;
-    font-size: 8em;
+    font-size: 6em;
 }
 @media only screen and (max-device-width: 480px) {
     .jumbotron h2 {
